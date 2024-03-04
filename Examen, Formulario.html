@@ -1,0 +1,187 @@
+<!-- Francisco Daniel Bravo Aburto -->
+<!-- Examen, Formulario de escuelas -->
+<!-- Lunes 4 de marzo del 2024-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario De Registro</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  form {
+    background-color: rgb(155, 220, 232);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 0; 
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #e9b469;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #88c7ee;
+  }
+
+  #carreraSection,
+  #nuevaEscuelaSection,
+  #nuevaCarreraSection {
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <h2>Formulario De Registro</h2> 
+  <form id="registroForm" action="#" method="POST">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required><br><br>
+    
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" required><br><br>
+    
+    <label for="email">Correo electrónico:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    
+    <label for="escuela">Escuela:</label>
+    <select id="escuela" name="escuela" onchange="showCarrera()">
+      <option value="seleccion">Selección</option>
+      <option value="conalep">Conalep</option>
+      <option value="cecytem">Cecytem</option>
+      <option value="cetmar">Cetmar</option>
+      <option value="otra">Otra Escuela</option>
+    </select><br><br>
+    
+    <div id="carreraSection" style="display:none;">
+      <label for="carrera">Carrera:</label>
+      <select id="carrera" name="carrera">
+        <option value="seleccion">Selección</option>
+      </select><br><br>
+    </div>
+    
+    <div id="nuevaEscuelaSection" style="display:none;">
+      <label for="nuevaEscuela">Nombre de la nueva escuela:</label>
+      <input type="text" id="nuevaEscuela" name="nuevaEscuela"><br><br>
+    </div>
+    
+    <div id="nuevaCarreraSection" style="display:none;">
+      <label for="nuevaCarrera">Nombre de la nueva carrera:</label>
+      <input type="text" id="nuevaCarrera" name="nuevaCarrera"><br><br>
+    </div>
+    
+    <input type="submit" value="Enviar">
+  </form>
+
+  <script>
+    var opcionesEscuela = [
+      { value: "seleccion", label: "Selección" },
+      { value: "enrique", label: "Enrique" },
+      { value: "cecytem", label: "Cecytem" },
+      { value: "anglo", label: "Anglo" },
+      { value: "otra", label: "Otra Escuela" }
+    ];
+
+    var opcionesCarrera = [
+      { value: "seleccion", label: "Selección" },
+      { value: "carrera1", label: "Carrera 1" },
+      { value: "carrera2", label: "Carrera 2" },
+      { value: "carrera3", label: "Carrera 3" },
+      { value: "otra", label: "Otra Carrera" }
+    ];
+
+    var escuelaSelect = document.getElementById("escuela");
+    var carreraSelect = document.getElementById("carrera");
+
+    function populateOptions(selectElement, options) {
+      selectElement.innerHTML = '';
+      options.forEach(function(option) {
+        var opt = document.createElement("option");
+        opt.value = option.value;
+        opt.text = option.label;
+        selectElement.add(opt);
+      });
+    }
+
+    function showCarrera() {
+      var selectedEscuela = escuelaSelect.value;
+      var selectedCarrera = carreraSelect.value;
+      var carreraSection = document.getElementById("carreraSection");
+      var nuevaEscuelaSection = document.getElementById("nuevaEscuelaSection");
+      var nuevaCarreraSection = document.getElementById("nuevaCarreraSection");
+
+      if (selectedEscuela === "otra") {
+        nuevaEscuelaSection.style.display = "block";
+       
+        carreraSection.style.display = "block";
+        populateOptions(carreraSelect, opcionesCarrera);
+      } else {
+        nuevaEscuelaSection.style.display = "none";
+      }
+
+      if (selectedEscuela !== "seleccion" && selectedEscuela !== "otra") {
+        carreraSection.style.display = "block";
+        populateOptions(carreraSelect, opcionesCarrera);
+      } else {
+        carreraSection.style.display = "none";
+      }
+
+      if (selectedCarrera === "otra") {
+        nuevaCarreraSection.style.display = "block";
+      } else {
+        nuevaCarreraSection.style.display = "none";
+      }
+    }
+
+    window.onload = function() {
+      populateOptions(escuelaSelect, opcionesEscuela);
+    };
+  </script>
+</body>
+</html>
+
+<!-- Francisco Daniel Bravo Aburto -->
+
+
